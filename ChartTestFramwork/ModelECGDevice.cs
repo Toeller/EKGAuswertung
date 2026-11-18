@@ -106,7 +106,9 @@ namespace ChartTestFramwork
             
             try
             {
-                serialPort1.Open();     
+                if(!serialPort1.IsOpen){
+                    serialPort1.Open();
+                }
             }
             
             catch (Exception ex)

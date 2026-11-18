@@ -109,6 +109,7 @@
     <Compile Include="ModelCSVWerte.cs" />
     <Compile Include="ModelLocaldata.cs" />
     <Compile Include="ModelSQL.cs" />
+    <Compile Include="ModelXML.cs" />
     <Compile Include="ViewEKG.cs">
       <SubType>Form</SubType>
     </Compile>
