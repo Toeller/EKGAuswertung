@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Runtime.Remoting.Messaging;
 using System.Text;
@@ -12,7 +13,8 @@ namespace ChartTestFramwork
     {
 
         // Path für eine eventuelle anbindung an die View zur Festlegung des XML Pfades
-        private String xmlPath = "EKGDaten.xml";
+        // @ wird dafür verwendet, den String 1:1 so zu nehmen wie er dort ist. \n o.Ä. funktioniert hier also nicht
+        private String xmlPath = @".\EKGData\";
 
         // Einfache änderung der Root Bezeichnung möglich
         private String xmlRootName = "EKGDaten";
@@ -30,13 +32,19 @@ namespace ChartTestFramwork
         IControllerECG IModelLocalData.ControllerECG { set => controllerECG = value; }
 
         /// <summary>
-        /// Der Pfad der XML Datei, inklusive des Dateinames mit .xml endung
+        /// Der Pfad der XML Datei. Ohne Dateiname und .xml
         /// </summary>
         public String XMLPath { set => xmlPath = value; get => xmlPath; }
 
         public ModelXML()
         {
             doc = new XDocument(new XElement(xmlRootName));
+            // Überprüfung ob der Ordner Path überhaupt existiert
+            if (!Directory.Exists(xmlPath))
+            {
+                // Wenn der Ordner nicht Existiert, erstelle ihn
+                Directory.CreateDirectory(xmlPath);
+            }
         }
 
         /// <summary>
@@ -48,7 +56,7 @@ namespace ChartTestFramwork
         {
 
             doc.Element(xmlRootName).Add(datensatz);
-            doc.Save(xmlPath);
+            doc.Save(xmlPath + "EKGData.xml");
 
         }
 
