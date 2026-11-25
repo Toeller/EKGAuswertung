@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.1">
+  <help_text/>
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1540</x>
+      <y>960</y>
+      <w>270</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>Program
+-
+_- modelLocaldata : IModelLocalData_
+_- modelEKGDevice : IModelECGDevice_
+_- viewEKG : IViewECG_
+_- controllerEKG : IControllerECG_
+-
+_+ Main()_
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1550</x>
+      <y>500</y>
+      <w>280</w>
+      <h>150</h>
+    </coordinates>
+    <panel_attributes>IModelLocalData
+&lt;&lt;Interface&gt;&gt;
+-
+- ViewEKG : IViewECG
+- ModelECGDevice : IModelECGDevice
+- ControllerECG : IControllerECG
+-
++ get24hData():List&lt;double&gt;
++ set24hData(aktuellerWert : ECGValue)
++ saveLiveData(aktuellerWert : ECGValue)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1480</x>
+      <y>10</y>
+      <w>400</w>
+      <h>200</h>
+    </coordinates>
+    <panel_attributes>ModelLocalData
+-
+- ViewEKG : IViewECG
+- ModelECGDevice : IModelECGDevice
+- ControllerECG : IControllerECG
+- xmlDoc : XDocument
+-
++ get24hData():List&lt;double&gt;
++ set24hData(aktuellerWert : ECGValue)
++ saveLiveData(aktuellerWert : ECGValue)
++ setViewEKG(viewEGK : IViewEKG)
++ setModelECGDevice(ModelECGDevice : IModelECGDevice)
++ setControllerECG(controllerECG : IControllerECG)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1680</x>
+      <y>200</y>
+      <w>30</w>
+      <h>320</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;300.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2110</x>
+      <y>1040</y>
+      <w>310</w>
+      <h>190</h>
+    </coordinates>
+    <panel_attributes>IControllerECG
+&lt;&lt;Interface&gt;&gt;
+-
+- ViewEKG : IViewECG
+- ModelEKGDevice : IModelECGDevice
+- ModelLocaldata : IModelLocaldata
+-
++ getData24h()
++ startLiveData()
++ stopLiveData()
++ startSaveLiveData()
++ stopSaveLiveData()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1960</x>
+      <y>630</y>
+      <w>580</w>
+      <h>250</h>
+    </coordinates>
+    <panel_attributes>ControllerECG
+-
+- ViewEKG : IViewECG
+- ModelEKGDevice : IModelECGDevice
+- ModelLocaldata : IModelLocaldata
+- liveSave : bool
+-
+- modelECGDevice_ECGDataRecieved(sender : object, e : ECGDataRecievedEventArgs)
++ getData24h()
++ startLiveData()
++ stopLiveData()
++ startSaveLiveData()
++ stopSaveLiveData()
++ setViewEKG(viewEKG : IViewEKG)
++ setModelECGDevice(ModelECGDevice : IModelECGDevice)
++ setModelLocaldata(ModelLocaldata : IModelLocalData)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2260</x>
+      <y>870</y>
+      <w>30</w>
+      <h>190</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;170.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>850</x>
+      <y>1040</y>
+      <w>360</w>
+      <h>210</h>
+    </coordinates>
+    <panel_attributes>IModelECGDevice
+&lt;&lt;Interface&gt;&gt;
+-
+- ViewECG : IViewECG
+- ModelLocaldata : IModelLocalData
+- ControllerECG : IControllerECG
+- ECGDataRecieved : ECGDataRecievedEventHandler
+-
++ setPort(portName string)
++ getData24h() : List&lt;ECGValue&gt;
++ deleteData24h()
++ startLiveData()
++ stopLiveData()
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>800</x>
+      <y>520</y>
+      <w>500</w>
+      <h>370</h>
+    </coordinates>
+    <panel_attributes>ModelECGDevice
+--
+- ViewECG : IViewECG
+- ModelLocaldata : IModelLocalData
+- ControllerECG : IControllerECG
+- ECGDataRecieved : ECGDataRecievedEventHandler
+- serialPort1 : SerialPort
+- recievedInt : int
+- live : bool
+- message : string
++ ECGDataRecieved : ECGDataRecievedEventHandler
+--
+# OnECGDataRecieved(e : ECGDataRecievedEventArgs)
++ ModelECGDevice()
+- serialPort1_DataRecieved(sender : object, e : SerialDataRecievedEventArgs)
++ setPort(portName string)
++ getData24h() : List&lt;ECGValue&gt;
++ deleteData24h()
++ startLiveData()
++ stopLiveData()
++ setViewEKG(viewEGK : IViewEKG)
++ setModelLocalData(ModelLocaldata : IModelLocaldata)
++ setControllerECG(controllerECG : IControllerECG)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1030</x>
+      <y>880</y>
+      <w>30</w>
+      <h>180</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;160.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1470</x>
+      <y>1610</y>
+      <w>270</w>
+      <h>190</h>
+    </coordinates>
+    <panel_attributes>IViewECG
+&lt;&lt;Interface&gt;&gt;
+--
+- ModelECGDevice : IModelECGDevice
+- ModelLocaldata : IModelLocaldata
+- ControllerECG : IControllerECG
+- newValue : int
+- Data24h : List&lt;double&gt;
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1390</x>
+      <y>1210</y>
+      <w>510</w>
+      <h>310</h>
+    </coordinates>
+    <panel_attributes>ViewEKG
+--
+- ModelECGDevice : IModelECGDevice
+- ModelLocaldata : IModelLocaldata
+- ControllerECG : IControllerECG
+- newValue : int
+- Data24h : List&lt;double&gt;
+- xVals : List&lt;double&gt;
+- yVals : List&lt;double&gt;
+--
++ ViewECG()
++ setModelECGDevice(ModelECGDevice : IModelECGDevice)
++ setModelLocaldata(ModelLocaldata : IModelLocaldata)
++ setControllerECG(controllerECG : IControllerECG)
++ setNewValue(newValue : int)
+- timer1_Tick(sender : object, e : EventArgs)
+- buttonStatLiveData_Click(sender : object, e : EventArgs)
+- comboBoxCOMProts_SelectedIndexChanged(sender : object, e : EventArgs)
+- buttonLoad_Click(sender : object, e : EventArgs)
+- buttonSaveData_Click(sender : object, e : EventArgs)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1590</x>
+      <y>1510</y>
+      <w>30</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;100.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1950</x>
+      <y>0</y>
+      <w>410</w>
+      <h>220</h>
+    </coordinates>
+    <panel_attributes>ModelCSVWerte
+--
+- ViewEKG : IViewECG
+- ModelECGDevice : IModelECGDevice
+- ControllerECG : IControllerECG
+- fs : FileStream
+--
+
++ get24hData():List&lt;double&gt;
++ set24hData(aktuellerWert : ECGValue)
++ saveLiveData(aktuellerWert : ECGValue)
++ setViewEKG(viewEGK : IViewEKG)
++ setModelECGDevice(ModelECGDevice : IModelECGDevice)
++ setControllerECG(controllerECG : IControllerECG)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1760</x>
+      <y>210</y>
+      <w>320</w>
+      <h>310</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;290.0;300.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>0</x>
+      <y>730</y>
+      <w>250</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>ECGValue
+--
+- value : int
+- timeStamp : int
+--
++ getValue():int
++ setValue(value : int)
++ getTimeStamp():int
++ setTimeStamp(TimeStamp : int)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>310</x>
+      <y>730</y>
+      <w>290</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>ECGDataRecievedEventArgs
+--
+
+--
+~ setECGValueRecieved(value : ECGValue)
+~ getECGValueRecieved() : ECGValue
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>350</x>
+      <y>910</y>
+      <w>210</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>EventArgs
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>440</x>
+      <y>800</y>
+      <w>30</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;110.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>990</x>
+      <y>10</y>
+      <w>430</w>
+      <h>240</h>
+    </coordinates>
+    <panel_attributes>ModelSQL
+--
+_- myConnectionString : String_
+_- conn : MySqlConnection_
+_- mycommand : MySqlCommand_
+- ViewEKG : IViewECG
+- ModelECGDevice : IModelECGDevice
+- ControllerECG : IControllerECG
+--
++ setViewEKG(viewEGK : IViewEKG)
++ setModelECGDevice(ModelECGDevice : IModelECGDevice)
++ setControllerECG(controllerECG : IControllerECG)
++ saveLiveData(aktuellerWert : ECGValue)
++ getData24h() : List&lt;double&gt;
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1180</x>
+      <y>240</y>
+      <w>440</w>
+      <h>280</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>420.0;260.0;10.0;10.0</additional_attributes>
+  </element>
+</diagram>
